@@ -1,0 +1,6 @@
+pytest==7.0.1
+<form method="GET" action="/mainpage">
+                  <input type="hidden" name="title" value="{{ music.title }}">
+                  <input type="hidden" name="artist" value="{{ music.artist }}">
+                  <input type="hidden" name="year" value="{{ music.year }}">
+                  

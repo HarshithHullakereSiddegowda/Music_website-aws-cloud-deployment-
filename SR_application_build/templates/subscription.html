@@ -1,0 +1,27 @@
+{% extends "mainpage.html" %}
+
+
+{% block content %}
+  <h1>Subscription Area</h1>
+  {% if subscription %}
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for music in subscription %}
+        <tr>
+          <td>{{ music.title }}</td>
+          <td>{{ music.artist }}</td>
+          <td>{{ music.year }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,106 @@
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="header">
+      <h1>Welcome, {{ user_name }}</h1>
+      <a href="/logout">Logout</a>
+    </div>
+    <div class="content">
+      <div class="user-area">
+        <h2>User Area</h2>
+        <!-- Add user area content here -->
+        {% if user_name %}
+          <p>Welcome, {{ user_name}}!</p>
+        {% endif %}  
+      </div>
+      <div class="subscription-area">
+        <h2>Subscription Area</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Year</th>
+              <th>Artist_Image</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if subscription %}
+            {% for music in subscription %}
+            <tr>
+              <td>{{ music.title }}</td>
+              <td>{{ music.artist}}</td>
+              <td>{{ music.year  }}</td>
+              <td><img src="{{ music.artist_image }}" width="100"></td>
+                
+              <td><button  type="submit" name="remove">Remove</button></td>
+            </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>  
+        <!-- Add subscription area content here -->
+      </div>
+      <div class="query-area">
+        <h2>Query Area</h2>
+        <form action="/mainpage" method="post">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title"><br>
+
+          <label for="artist">Artist:</label>
+          <input type="text" id="artist" name="artist"><br>
+
+          <label for="year">Year:</label>
+          <input type="text" id="year" name="year"><br>
+
+          <input type="submit" value="Query">
+        </form>
+        <!-- Add query area content here -->
+        {% if query_message %} 
+          <p>{{query_message}}</p>
+        {% elif read_results %}
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Artist_Image</th>
+                <th>Subscribe</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in read_results %} 
+                <tr>
+                  <td>{{item.title}}</td>
+                  <td>{{item.artist}}</td>
+                  <td>{{item.year}}</td>
+                  <td><img src="{{ item.artist_image }}" width="200"></td>
+                  <td>
+                  <form  method="GET" action='/mainpage'>
+                    <input type="hidden" name="title" value="{{ item.title}}">
+                    <input type="hidden" name="artist" value="{{item.artist}}">
+                    
+                    <input type="hidden" name="year" value="{{item.year}}">
+                    <input type="hidden" name="artist_image" value="{{ item.artist_image }}">
+                    <button  type="submit" >Subscribe</button>
+                  </form>     
+                </tr>
+              {% endfor %} 
+            </tbody>
+          </table>
+          </ul>
+        {% endif %}  
+      </div>
+    </div>
+  </body>
+</html>
